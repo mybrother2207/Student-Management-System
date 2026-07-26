@@ -1,14 +1,5 @@
 [
     {
-        "student_id": "SV001",
-        "name": "Nguyễn Văn A",
-        "age": 20,
-        "major": "CNTT",
-        "math": 9,
-        "literature": 8,
-        "english": 10
-    },
-    {
         "student_id": "SV002",
         "name": "Nguyễn Văn C",
         "age": 21,
@@ -16,5 +7,23 @@
         "math": 7.0,
         "literature": 7.0,
         "english": 8.0
+    },
+    {
+        "student_id": "SV003",
+        "name": "Nguyễn Hoà An",
+        "age": 30,
+        "major": "Kinh tế",
+        "math": 5.0,
+        "literature": 9.0,
+        "english": 6.0
+    },
+    {
+        "student_id": "SV004",
+        "name": "Nguyễn Văn Vân",
+        "age": 23,
+        "major": "CNTT",
+        "math": 7.0,
+        "literature": 6.0,
+        "english": 7.0
     }
 ]

@@ -1,43 +1,45 @@
+from openpyxl import Workbook
 import os
-import csv
 
-def export_csv(students):
 
-    # Tự tạo thư mục reports nếu chưa có
+def export_excel(students):
+
     os.makedirs("reports", exist_ok=True)
 
-    with open(
-        "reports/students.csv",
-        "w",
-        newline="",
-        encoding="utf-8-sig"
-    ) as file:
+    file_path = "reports/students.xlsx"
 
-        writer = csv.writer(file)
+    wb = Workbook()
 
-        writer.writerow([
-            "Mã",
-            "Tên",
-            "Tuổi",
-            "Ngành",
-            "Toán",
-            "Văn",
-            "Anh",
-            "GPA",
-            "Xếp loại"
+    ws = wb.active
+
+    ws.title = "Students"
+
+    ws.append([
+        "Mã SV",
+        "Họ tên",
+        "Tuổi",
+        "Ngành",
+        "Toán",
+        "Văn",
+        "Tiếng Anh",
+        "GPA",
+        "Xếp loại"
+    ])
+
+    for student in students:
+
+        ws.append([
+            student.student_id,
+            student.name,
+            student.age,
+            student.major,
+            student.math,
+            student.literature,
+            student.english,
+            round(student.average_score(), 2),
+            student.classification()
         ])
 
-        for student in students:
-            writer.writerow([
-                student.student_id,
-                student.name,
-                student.age,
-                student.major,
-                student.math,
-                student.literature,
-                student.english,
-                student.average_score(),
-                student.classification()
-            ])
+    wb.save(file_path)
 
-    print("Xuất CSV thành công.")
+    print(f"\nXuất Excel thành công:\n{file_path}")

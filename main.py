@@ -7,10 +7,11 @@ from services.student_service import (
     find_student,
     update_student,
     delete_student,
-    save_data,
-    load_data
+    statistic,
+    sort_gpa
 )
-from services.report_service import export_csv
+from services.report_service import export_excel
+from services.student_service import students
 
 
 def main():
@@ -41,13 +42,11 @@ def main():
 
             delete_student()
 
-        elif choice == "6":
+        elif choice == "8":
+            statistic()
 
-            save_data()
-
-        elif choice == "7":
-
-            load_data()
+        elif choice=="9":
+            sort_gpa()
 
         elif choice == "10":
             search_by_name()
@@ -57,7 +56,7 @@ def main():
 
         elif choice == "12":
             from services.student_service import students
-            export_csv(students)
+            export_excel(students)
         elif choice == "0":
 
             print("Cảm ơn bạn đã sử dụng chương trình.")

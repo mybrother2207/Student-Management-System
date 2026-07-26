@@ -49,9 +49,9 @@ class Student:
             data["name"],
             data["age"],
             data["major"],
-            data["math"],
-            data["literature"],
-            data["english"]
+            data.get("math",0),
+            data.get("literature",0),
+            data.get("english",0)
         )
 
     def average_score(self):
@@ -75,39 +75,3 @@ class Student:
         return "Yếu"
 
 
-def statistic(students):
-
-    gioi = 0
-    kha = 0
-    trungbinh = 0
-    yeu = 0
-
-    for student in students:
-
-        if student.classification() == "Giỏi":
-            gioi += 1
-
-        elif student.classification() == "Khá":
-            kha += 1
-
-        elif student.classification() == "Trung bình":
-            trungbinh += 1
-
-        else:
-            yeu += 1
-
-    print("Giỏi:", gioi)
-    print("Khá:", kha)
-    print("Trung bình:", trungbinh)
-    print("Yếu:", yeu)
-
-
-def sort_gpa(students):
-
-    students.sort(
-        key=lambda x: x.average_score(),
-        reverse=True
-    )
-
-    for student in students:
-        student.display()

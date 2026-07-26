@@ -3,7 +3,8 @@ from utils.validator import (
     is_duplicate_id,
     is_valid_age,
     is_valid_name,
-    is_valid_major
+    is_valid_major,
+    input_score
 )
 from services.file_service import save_students, load_students
 from services.logger_config import logger
@@ -45,9 +46,9 @@ def add_student():
     if not is_valid_major(major):
         print(">> Ngành học không hợp lệ.")
         return
-    math = float(input("Điểm Toán: "))
-    literature = float(input("Điểm Văn: "))
-    english = float(input("Điểm Anh: "))
+    math=input_score("Toán")
+    literature=input_score("Văn")
+    english=input_score("Anh")
     student = Student(
         student_id,
         name,
@@ -59,6 +60,7 @@ def add_student():
     )
 
     students.append(student)
+    save_students(students)
     logger.info(f"Thêm sinh viên: {student.student_id} - {student.name}")
     print("\n>> Thêm sinh viên thành công.")
 # ==========================
@@ -132,6 +134,13 @@ def update_student():
             student.name = name
             student.age = age
             student.major = major
+            m=input(f"Điểm Toán [{student.math}]: ")
+            if m.strip(): student.math=float(m)
+            l=input(f"Điểm Văn [{student.literature}]: ")
+            if l.strip(): student.literature=float(l)
+            e=input(f"Điểm Anh [{student.english}]: ")
+            if e.strip(): student.english=float(e)
+            save_students(students)
             logger.info(f"Cập nhật sinh viên: {student.student_id}")
             print("\n>> Cập nhật thành công.")
             return
@@ -158,6 +167,7 @@ def delete_student():
 
             if confirm.upper() == "Y":
                 students.remove(student)
+                save_students(students)
                 logger.info(f"Xóa sinh viên: {student.student_id}")
                 print("\n>> Xóa sinh viên thành công!")
             else:
@@ -208,3 +218,13 @@ def search_by_major():
 
     if not found:
         print("Không tìm thấy.")
+
+
+def statistic():
+    counts={"Giỏi":0,"Khá":0,"Trung bình":0,"Yếu":0}
+    for s in students: counts[s.classification()]+=1
+    for k,v in counts.items(): print(f"{k}: {v}")
+
+def sort_gpa():
+    for s in sorted(students,key=lambda x:x.average_score(),reverse=True):
+        s.display()
