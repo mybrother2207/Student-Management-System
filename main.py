@@ -11,7 +11,6 @@ from services.student_service import (
     sort_gpa
 )
 from services.report_service import export_excel
-from services.student_service import students
 
 
 def main():
@@ -45,7 +44,7 @@ def main():
         elif choice == "8":
             statistic()
 
-        elif choice=="9":
+        elif choice == "9":
             sort_gpa()
 
         elif choice == "10":
