@@ -123,7 +123,10 @@ def show_students():
         print("Danh sách rỗng.")
         return
 
-    for student in students:
+    for index, student in enumerate(students, start=1):
+
+        print(f"\n===== Sinh viên {index} =====")
+
         student.display()
 
 
@@ -133,7 +136,7 @@ def show_students():
 def find_student():
     print("\n===== TÌM KIẾM SINH VIÊN =====")
 
-    student_id = input("Nhập mã sinh viên: ")
+    student_id = input("Nhập mã sinh viên: ").strip()
 
     for student in students:
         if student.student_id == student_id:
@@ -159,100 +162,59 @@ def update_student():
 
             # Cập nhật tên
             while True:
-                name = input("Tên mới: ").strip()
+                name = input(f"Tên [{student.name}]: ").strip()
 
-                if not is_valid_name(name):
-                    print("Tên không hợp lệ.")
-                    continue
+                if name == "":
+                    name = student.name
+                    break
 
-                break
+                if is_valid_name(name):
+                    break
+
+                print("Tên không hợp lệ.")
 
             # Cập nhật tuổi
             while True:
-                try:
-                    age = int(input("Tuổi mới: "))
 
-                    if not is_valid_age(age):
-                        print("Tuổi phải lớn hơn 0.")
-                        continue
+                age = input(f"Tuổi [{student.age}]: ").strip()
 
+                if age == "":
+                    age = student.age
                     break
+
+                try:
+                    age = int(age)
+
+                    if is_valid_age(age):
+                        break
+
+                    print("Tuổi phải lớn hơn 0.")
 
                 except ValueError:
                     print("Tuổi phải là số.")
 
             # Cập nhật ngành
             while True:
-                major = input("Ngành mới: ").strip()
 
-                if not is_valid_major(major):
-                    print("Ngành không hợp lệ.")
-                    continue
+                major = input(f"Ngành [{student.major}]: ").strip()
 
-                break
+                if major == "":
+                    major = student.major
+                    break
+
+                if is_valid_major(major):
+                    break
+
+                print("Ngành không hợp lệ.")
 
             # Lưu thông tin mới
             student.name = name
             student.age = age
             student.major = major
 
-            # Cập nhật điểm Toán
-            while True:
-                m = input(f"Điểm Toán [{student.math}]: ").strip()
-
-                if m == "":
-                    break
-
-                try:
-                    m = float(m)
-
-                    if 0 <= m <= 10:
-                        student.math = m
-                        break
-
-                    print("Điểm phải từ 0 đến 10.")
-
-                except ValueError:
-                    print("Điểm phải là số.")
-
-            # Cập nhật điểm Văn
-            while True:
-                lit = input(f"Điểm Văn [{student.literature}]: ").strip()
-
-                if lit == "":
-                    break
-
-                try:
-                    lit = float(lit)
-
-                    if 0 <= lit <= 10:
-                        student.literature = lit
-                        break
-
-                    print("Điểm phải từ 0 đến 10.")
-
-                except ValueError:
-                    print("Điểm phải là số.")
-
-            # Cập nhật điểm Anh
-            while True:
-                e = input(f"Điểm Anh [{student.english}]: ").strip()
-
-                if e == "":
-                    break
-
-                try:
-                    e = float(e)
-
-                    if 0 <= e <= 10:
-                        student.english = e
-                        break
-
-                    print("Điểm phải từ 0 đến 10.")
-
-                except ValueError:
-                    print("Điểm phải là số.")
-
+            student.math = input_score("Toán", student.math)
+            student.literature = input_score("Văn", student.literature)
+            student.english = input_score("Anh", student.english)
             save_students(students)
             logger.info(
                 f"Cập nhật sinh viên: {student.student_id}"
@@ -301,23 +263,6 @@ def delete_student():
                     print(">> Vui lòng nhập Y hoặc N.")
 
     print("\n>> Không tìm thấy sinh viên.")
-
-
-# ==========================
-# Lưu dữ liệu
-# ==========================
-def save_data():
-    save_students(students)
-    print(">> Đã lưu dữ liệu thành công.")
-
-
-# ==========================
-# Đọc dữ liệu
-# ==========================
-def load_data():
-    global students
-    students = load_students()
-    print(">> Đã đọc dữ liệu thành công.")
 
 
 # ==========================
