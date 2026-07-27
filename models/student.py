@@ -1,4 +1,3 @@
-
 class Student:
     def __init__(
         self,
@@ -73,5 +72,4 @@ class Student:
             return "Trung bình"
 
         return "Yếu"
-
 
