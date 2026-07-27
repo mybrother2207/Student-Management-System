@@ -8,13 +8,29 @@ def is_valid_major(major): return len(major.strip()) > 0
 def is_valid_score(score): return 0 <= score <= 10
 
 
-def input_score(subject):
+def input_score(subject, current=None):
+
     while True:
+
+        text = f"Điểm {subject}"
+
+        if current is not None:
+            text += f" [{current}]"
+
+        text += ": "
+
+        value = input(text).strip()
+
+        if value == "" and current is not None:
+            return current
+
         try:
-            score = float(input(f"Điểm {subject}: "))
-            if not is_valid_score(score):
-                print("Điểm phải từ 0 đến 10.")
-                continue
-            return score
+            score = float(value)
+
+            if is_valid_score(score):
+                return score
+
+            print("Điểm phải từ 0 đến 10.")
+
         except ValueError:
             print("Vui lòng nhập số.")
