@@ -1,5 +1,6 @@
 from menu import show_menu
 from services.student_service import initialize_students
+from services.student_service import students
 
 
 from services.student_service import (
@@ -59,7 +60,6 @@ def main():
             search_by_major()
 
         elif choice == "12":
-            from services.student_service import students
             export_excel(students)
         elif choice == "0":
 
