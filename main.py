@@ -1,16 +1,14 @@
 from menu import show_menu
-from services.student_service import initialize_students
-from services.student_service import students
-
-
 from services.student_service import (
+    initialize_students,
+    get_students,
     add_student,
-    search_by_name,
-    search_by_major,
     show_students,
     find_student,
     update_student,
     delete_student,
+    search_by_name,
+    search_by_major,
     statistic,
     sort_gpa
 )
@@ -60,7 +58,7 @@ def main():
             search_by_major()
 
         elif choice == "12":
-            export_excel(students)
+            export_excel(get_students())
         elif choice == "0":
 
             print("Cảm ơn bạn đã sử dụng chương trình.")
