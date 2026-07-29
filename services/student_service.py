@@ -6,10 +6,11 @@ from utils.validator import (
     is_valid_major,
     input_score
 )
+
 from services.file_service import save_students, load_students
 from services.logger_config import logger
 # Danh sách lưu sinh viên
-students = load_students()
+students = []
 
 
 # ==========================
@@ -110,7 +111,7 @@ def add_student():
     print("===================================")
 
     print("\nThông tin sinh viên vừa thêm:")
-    student.display()
+    print(student)
 # ==========================
 # Hiển thị danh sách
 # ==========================
@@ -127,7 +128,7 @@ def show_students():
 
         print(f"\n===== Sinh viên {index} =====")
 
-        student.display()
+        print(student)
 
 
 # ==========================
@@ -141,7 +142,7 @@ def find_student():
     for student in students:
         if student.student_id == student_id:
             print("\nĐã tìm thấy sinh viên:")
-            student.display()
+            print(student)
             return
 
     print("Không tìm thấy sinh viên.")
@@ -239,7 +240,7 @@ def delete_student():
         if student.student_id == student_id:
 
             print("\nThông tin sinh viên:")
-            student.display()
+            print(student)
 
             while True:
                 confirm = (
@@ -277,7 +278,7 @@ def search_by_name():
     for student in students:
 
         if keyword in student.name.lower():
-            student.display()
+            print(student)
             found = True
 
     if not found:
@@ -296,7 +297,7 @@ def search_by_major():
     for student in students:
 
         if keyword in student.major.lower():
-            student.display()
+            print(student)
             found = True
 
     if not found:
@@ -345,4 +346,12 @@ def sort_gpa():
 
     for index, student in enumerate(sorted_students, start=1):
         print(f"\n----- {index} -----")
-        student.display()
+        print(student)
+
+
+# ==========================
+# Khởi tạo danh sách sinh viên
+# ==========================
+def initialize_students():
+    global students
+    students = load_students()
