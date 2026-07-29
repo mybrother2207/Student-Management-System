@@ -353,5 +353,5 @@ def sort_gpa():
 # Khởi tạo danh sách sinh viên
 # ==========================
 def initialize_students():
-    global students
-    students = load_students()
+    students.clear()
+    students.extend(load_students())
