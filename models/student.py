@@ -17,18 +17,20 @@ class Student:
         self.literature = literature
         self.english = english
 
-    def display(self):
-        print("-" * 40)
-        print("Mã:", self.student_id)
-        print("Tên:", self.name)
-        print("Tuổi:", self.age)
-        print("Ngành:", self.major)
-        print("Toán:", self.math)
-        print("Văn:", self.literature)
-        print("Anh:", self.english)
-        print("GPA:", self.average_score())
-        print("Xếp loại:", self.classification())
-        print("-" * 40)
+    def __str__(self):
+        return (
+            "-" * 40 + "\n"
+            f"Mã: {self.student_id}\n"
+            f"Tên: {self.name}\n"
+            f"Tuổi: {self.age}\n"
+            f"Ngành: {self.major}\n"
+            f"Toán: {self.math}\n"
+            f"Văn: {self.literature}\n"
+            f"Anh: {self.english}\n"
+            f"GPA: {self.average_score():.2f}\n"
+            f"Xếp loại: {self.classification()}\n"
+            + "-" * 40
+        )
 
     def to_dict(self):
         return {
@@ -48,9 +50,9 @@ class Student:
             data["name"],
             data["age"],
             data["major"],
-            data.get("math",0),
-            data.get("literature",0),
-            data.get("english",0)
+            data.get("math", 0),
+            data.get("literature", 0),
+            data.get("english", 0)
         )
 
     def average_score(self):
@@ -64,12 +66,9 @@ class Student:
 
         if avg >= 8:
             return "Giỏi"
-
         elif avg >= 6.5:
             return "Khá"
-
         elif avg >= 5:
             return "Trung bình"
 
         return "Yếu"
-
