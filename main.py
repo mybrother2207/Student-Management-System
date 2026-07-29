@@ -1,4 +1,7 @@
 from menu import show_menu
+from services.student_service import initialize_students
+
+
 from services.student_service import (
     add_student,
     search_by_name,
@@ -14,6 +17,8 @@ from services.report_service import export_excel
 
 
 def main():
+
+    initialize_students()
 
     while True:
 
