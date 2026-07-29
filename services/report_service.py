@@ -2,16 +2,14 @@ from openpyxl import Workbook
 import os
 
 
-def export_excel(students):
+def export_excel(students, file_path="reports/students.xlsx"):
 
-    os.makedirs("reports", exist_ok=True)
-
-    file_path = "reports/students.xlsx"
+    directory = os.path.dirname(file_path)
+    if directory:
+        os.makedirs(directory, exist_ok=True)
 
     wb = Workbook()
-
     ws = wb.active
-
     ws.title = "Students"
 
     ws.append([
@@ -27,7 +25,6 @@ def export_excel(students):
     ])
 
     for student in students:
-
         ws.append([
             student.student_id,
             student.name,
@@ -36,7 +33,7 @@ def export_excel(students):
             student.math,
             student.literature,
             student.english,
-            round(student.average_score(), 2),
+            student.average_score(),
             student.classification()
         ])
 
