@@ -351,7 +351,10 @@ def sort_gpa():
 
 # ==========================
 # Khởi tạo danh sách sinh viên
-# ==========================
 def initialize_students():
     students.clear()
     students.extend(load_students())
+
+
+def get_students():
+    return students
